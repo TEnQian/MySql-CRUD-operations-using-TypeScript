@@ -236,6 +236,50 @@ app.post('/jobs/', async function (req : RequestParams, res, next) {
         }
 
         if(jobPostTile && jobPostContent && jobLocations){
+            if(jobCategoryID){
+                await runTransaction(async query => {
+                    const checkHasCategory = JSON.parse(JSON.stringify(
+                    await query(`SELECT *
+                    FROM categories
+                    WHERE id = ?`,[jobCategoryID])
+                    ));
+        
+                    if(checkHasCategory[0].length > 0){
+                        checkResult = true;
+                    }
+                });
+        
+                if(checkResult === false){
+                    errorMessage = JSON.stringify("Category not found, please try again");
+                    res.status(500);
+                    res.send(errorMessage);
+                    next();
+                    return;
+                }
+            }
+
+            if(jobPermitTypeID){
+                await runTransaction(async query => {
+                    const checkHasPermit = JSON.parse(JSON.stringify(
+                    await query(`SELECT *
+                    FROM permit_types
+                    WHERE id = ?`,[jobPermitTypeID])
+                    ));
+        
+                    if(checkHasPermit[0].length > 0){
+                        checkResult = true;
+                    }
+                });
+        
+                if(checkResult === false){
+                    errorMessage = JSON.stringify("Permit type not found, please try again");
+                    res.status(500);
+                    res.send(errorMessage);
+                    next();
+                    return;
+                }
+            }
+            
             jobPostTile = jobPostTile.replace("%20","");
             try{
                 await runTransaction(async query => {
