@@ -4,7 +4,7 @@ import * as mysql from 'mysql2/promise';
 
 const app = express();
 
-const credentials : string = "Imagint1024";
+const credentials : string = "AUTHENTICATION_TOKEN_CODE";
 
 const AuthorizationPass : string = "Basic " + credentials;
 
