@@ -13,10 +13,10 @@ let errorMessage : string;
 app.use(express.json());
 
 const pool : mysql.Pool = mysql.createPool({
-    host : "dev.imagint.co",
-    user: 'enqian',
-    password: "Imagint1024",
-    database: "eq-test"
+    host : "localhost",
+    user: 'root',
+    password: "",
+    database: "dbname"
 });
 
 interface RequestParams extends express.Request {
