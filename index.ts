@@ -71,16 +71,6 @@ async function checkAuthentication(userAuthenticationToken : string | null) : Pr
     }
 }
 
-interface jobPost{
-    id : number,
-    post_title : string,
-    post_content : string,
-    category_id : number,
-    permit_type_id : number,
-    job_post_id : number,
-    location_id : number
-}
-
 //Get Request
 app.get('/jobs', async function(req : RequestParams, res ,next) {
     let requestedJobTitle : string = req.query.jobTitle;
