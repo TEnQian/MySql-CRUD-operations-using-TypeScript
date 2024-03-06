@@ -1,12 +1,6 @@
 import * as http from 'http';
 import * as express from 'express';
-import * as fs from 'fs';
 import * as mysql from 'mysql2/promise';
-import { run } from 'node:test';
-import { resolve } from 'path';
-import { Connection } from 'mysql2/typings/mysql/lib/Connection';
-import { PoolConnection } from 'mysql2/typings/mysql/lib/PoolConnection';
-import e = require('express');
 
 const app = express();
 
@@ -19,10 +13,10 @@ let errorMessage : string;
 app.use(express.json());
 
 const pool : mysql.Pool = mysql.createPool({
-    host : "localhost",
-    user: "root",
-    password: "",
-    database: "dbname"
+    host : "dev.imagint.co",
+    user: 'enqian',
+    password: "Imagint1024",
+    database: "eq-test"
 });
 
 interface RequestParams extends express.Request {
@@ -75,6 +69,16 @@ async function checkAuthentication(userAuthenticationToken : string | null) : Pr
     else{
         return authenticationStatus = 3; // No authentication token included
     }
+}
+
+interface jobPost{
+    id : number,
+    post_title : string,
+    post_content : string,
+    category_id : number,
+    permit_type_id : number,
+    job_post_id : number,
+    location_id : number
 }
 
 //Get Request
